@@ -821,6 +821,14 @@ def HasVendorXTHeadVdot : Predicate<"Subtarget->hasVendorXTHeadVdot()">,
                                     AssemblerPredicate<(all_of FeatureVendorXTHeadVdot),
                                     "'xtheadvdot' (T-Head Vector Extensions for Dot)">;
 
+def FeatureVendorXINCHIVdemo
+    : SubtargetFeature<"xinchivdemo", "HasVendorXINCHIVdemo", "true",
+                       "'xinchivdemo' (INCHI Vector Extensions for Dot)",
+                       [FeatureStdExtV]>;
+def HasVendorXINCHIVdemo : Predicate<"Subtarget->hasVendorXINCHIVdemo()">,
+                                    AssemblerPredicate<(all_of FeatureVendorXINCHIVdemo),
+                                    "'xinchivdemo' (INCHI Vector Extensions for Dot)">;
+
 def FeatureVendorXSfvcp
     : SubtargetFeature<"xsfvcp", "HasVendorXSfvcp", "true",
                        "'XSfvcp' (SiFive Custom Vector Coprocessor Interface Instructions)",
