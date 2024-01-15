@@ -71,6 +71,7 @@ static const RISCVSupportedExtension SupportedExtensions[] = {
     {"xcvmac", {1, 0}},
     {"xcvmem", {1, 0}},
     {"xcvsimd", {1, 0}},
+    {"xinchivdemo", {1, 0}},
     {"xsfvcp", {1, 0}},
     {"xsfvfnrclipxfqf", {1, 0}},
     {"xsfvfwmaccqqq", {1, 0}},
@@ -1006,6 +1007,7 @@ Error RISCVISAInfo::checkDependency() {
 static const char *ImpliedExtsD[] = {"f"};
 static const char *ImpliedExtsF[] = {"zicsr"};
 static const char *ImpliedExtsV[] = {"zvl128b", "zve64d"};
+static const char *ImpliedExtsXINCHIVdemo[] = {"v"};
 static const char *ImpliedExtsXTHeadVdot[] = {"v"};
 static const char *ImpliedExtsXSfvcp[] = {"zve32x"};
 static const char *ImpliedExtsXSfvfnrclipxfqf[] = {"zve32f"};
@@ -1080,6 +1082,7 @@ static constexpr ImpliedExtsEntry ImpliedExts[] = {
     {{"d"}, {ImpliedExtsD}},
     {{"f"}, {ImpliedExtsF}},
     {{"v"}, {ImpliedExtsV}},
+    {{"xinchivdemo"}, {ImpliedExtsXINCHIVdemo}},
     {{"xsfvcp"}, {ImpliedExtsXSfvcp}},
     {{"xsfvfnrclipxfqf"}, {ImpliedExtsXSfvfnrclipxfqf}},
     {{"xsfvfwmaccqqq"}, {ImpliedExtsXSfvfwmaccqqq}},
