@@ -112,3 +112,51 @@ let Predicates = [HasVendorXINCHIVdemo] in {
 defm : VPatTernaryINCHI<"int_riscv_inchi_vmadd32",  "PseudoINCHIVdemoVmadd32",
                               AllIntegerVectors>;
 }
+
+//===----------------------------------------------------------------------===//
+// inchi.cp32 & inchi.madd32
+//===----------------------------------------------------------------------===//
+
+let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
+class INCHIInstBase_rr<bits<7> funct7, bits<3> funct3, string opcodestr,
+             bit Commutable = 0>
+    : RVInstR<funct7, funct3, OPC_CUSTOM_0, (outs GPR:$rd), (ins GPR:$rs1, GPR:$rs2),
+              opcodestr, "$rd, $rs1, $rs2"> {
+  let isCommutable = Commutable;
+  let DecoderNamespace = "XINCHIVdemo";
+}
+
+class INCHIInstBase_rrr<bits<7> funct7, bits<3> funct3, string opcodestr>
+    : RVInstR<funct7, funct3, OPC_CUSTOM_0,
+              (outs GPR:$rd_wb), (ins GPR:$rd, GPR:$rs1, GPR:$rs2),
+              opcodestr, "$rd, $rs1, $rs2"> {
+  let DecoderNamespace = "XINCHIVdemo";
+}
+
+let Predicates = [HasVendorXINCHIVdemo] in {
+  def INCHI_CP32  : INCHIInstBase_rr<0b0000011, 0b010, "inchi.cp32">;
+}
+
+
+let Predicates = [HasVendorXINCHIVdemo], hasSideEffects = 0, mayLoad = 0,
+    mayStore = 0, Constraints = "$rd = $rd_wb" in {
+      def INCHI_MADD32 : INCHIInstBase_rrr<0b0000011, 0b000, "inchi.madd32">;
+}
+
+//===----------------------------------------------------------------------===//
+//
+//class PatGprGpr<SDPatternOperator OpNode, RVInst Inst, ValueType vt1 = XLenVT,
+//                ValueType vt2 = XLenVT>
+//    : Pat<(vt1 (OpNode (vt1 GPR:$rs1), (vt2 GPR:$rs2))), (Inst GPR:$rs1, GPR:$rs2)>;
+//===----------------------------------------------------------------------===//
+let Predicates = [HasVendorXINCHIVdemo] in {
+def : PatGprGpr<int_riscv_inchi_cp32, INCHI_CP32>;
+}
+
+class PatGprGprGpr<SDPatternOperator OpNode, RVInst Inst, ValueType vt1 = XLenVT,
+                ValueType vt2 = XLenVT, ValueType vt3 = XLenVT>
+    : Pat<(vt1 (OpNode (vt1 GPR:$rs1), (vt2 GPR:$rs2), (vt3 GPR:$rs3))), (Inst GPR:$rs1, GPR:$rs2, GPR:$rs3)>;
+
+let Predicates = [HasVendorXINCHIVdemo] in {
+def : PatGprGprGpr<int_riscv_inchi_madd32, INCHI_MADD32>;
+}

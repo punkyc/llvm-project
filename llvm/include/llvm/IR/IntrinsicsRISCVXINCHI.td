@@ -20,3 +20,26 @@ let TargetPrefix = "riscv" in {
 
   def int_riscv_inchi_vmadd32    : RISCVINCHICustomVdemo;
 }
+
+
+let TargetPrefix = "riscv" in {
+
+class INCHIScalarIntrinsicCP32
+    : DefaultAttrsIntrinsic<[llvm_i64_ty],
+                            [llvm_i64_ty, llvm_i64_ty],
+                            [IntrNoMem, IntrSpeculatable]>;
+
+def int_riscv_inchi_cp32   : INCHIScalarIntrinsicCP32,
+                          ClangBuiltin<"__builtin_riscv_inchi_cp32">;
+}
+
+let TargetPrefix = "riscv" in {
+
+class INCHIScalarIntrinsicMADD32
+    : DefaultAttrsIntrinsic<[llvm_i64_ty],
+                            [llvm_i64_ty, llvm_i64_ty, llvm_i64_ty],
+                            [IntrNoMem, IntrSpeculatable]>;
+
+def int_riscv_inchi_madd32   : INCHIScalarIntrinsicMADD32,
+                          ClangBuiltin<"__builtin_riscv_inchi_madd32">;
+}

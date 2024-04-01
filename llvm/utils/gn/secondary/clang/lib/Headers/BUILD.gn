@@ -262,6 +262,7 @@ copy("Headers") {
     "rdseedintrin.h",
     "riscv_bitmanip.h",
     "riscv_crypto.h",
+    "riscv_inchi.h",
     "riscv_ntlh.h",
     "rtmintrin.h",
     "s390intrin.h",

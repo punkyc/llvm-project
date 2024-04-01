@@ -89,5 +89,9 @@ TARGET_BUILTIN(__builtin_riscv_sm3p1, "UiUi", "nc", "zksh")
 TARGET_BUILTIN(__builtin_riscv_ntl_load, "v.", "t", "zihintntl")
 TARGET_BUILTIN(__builtin_riscv_ntl_store, "v.", "t", "zihintntl")
 
+// Inchi builtin
+TARGET_BUILTIN(__builtin_riscv_inchi_cp32, "UWiUWiUWi", "nc", "xinchivdemo,64bit")
+TARGET_BUILTIN(__builtin_riscv_inchi_madd32, "UWiUWiUWiUWi", "nc", "xinchivdemo,64bit")
+
 #undef BUILTIN
 #undef TARGET_BUILTIN

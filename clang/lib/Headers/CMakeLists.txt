@@ -120,6 +120,7 @@ set(riscv_files
   riscv_crypto.h
   riscv_ntlh.h
   sifive_vector.h
+  riscv_inchi.h
   )
 
 set(systemz_files
