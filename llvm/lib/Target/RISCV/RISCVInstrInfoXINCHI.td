@@ -160,3 +160,25 @@ class PatGprGprGpr<SDPatternOperator OpNode, RVInst Inst, ValueType vt1 = XLenVT
 let Predicates = [HasVendorXINCHIVdemo] in {
 def : PatGprGprGpr<int_riscv_inchi_madd32, INCHI_MADD32>;
 }
+
+//===----------------------------------------------------------------------===//
+// inchi.vmadd32.cm & inchi.vmadd32.cm.ddr & inchi.vmadd32.cr
+//===----------------------------------------------------------------------===//
+let hasSideEffects = 0, mayLoad = 1, mayStore = 0 in
+class INCHIInstBase_cm<bits<2> funct2, bits<3> funct3, string opcodestr>
+    : RVInstR4<funct2, funct3, OPC_CUSTOM_0,
+              (outs GPR:$rd), (ins GPR:$rs1, GPR:$rs2, GPR:$rs3),
+              opcodestr, "$rd, $rs1, $rs2, $rs3"> {
+  let DecoderNamespace = "XINCHIVdemo";
+}
+
+let Predicates = [HasVendorXINCHIVdemo] in {
+  def INCHI_VMADD32_CR  : INCHIInstBase_cm<0b11, 0b111, "inchi.vmadd32.cr">;
+  def INCHI_VMADD32_CM  : INCHIInstBase_cm<0b11, 0b101, "inchi.vmadd32.cm">;
+  def INCHI_VMADD32_CM_DDR  : INCHIInstBase_cm<0b11, 0b110, "inchi.vmadd32.cm.ddr">;
+
+  def INCHI_VMOV_CMX  : INCHIInstBase_rr<0b0000011, 0b011, "inchi.vmov.cmx">;
+  def INCHI_VMOV_CMY  : INCHIInstBase_rr<0b0000011, 0b100, "inchi.vmov.cmy">;
+  def INCHI_VMOV_CRX  : INCHIInstBase_rr<0b0000001, 0b111, "inchi.vmov.crx">;
+
+}
